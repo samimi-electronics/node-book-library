@@ -1,0 +1,8 @@
+
+We created a node project using:
+> npm init
+
+Then we isntalled express, ejs and express-ejs-layouts using:
+> npm i express ejs express-ejs-layouts
+
+Then we setup the our server.js to fit our needs

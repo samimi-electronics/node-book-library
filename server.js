@@ -20,6 +20,7 @@ if (process.env.NODE_ENV !== 'production') {
 const express = require('express');
 const app = express();
 const expressLayouts = require('express-ejs-layouts');
+const bodyParser = require('body-parser');
 
 // Setting up our development port address
 const PORT = 3000;
@@ -40,14 +41,23 @@ app.set('layout', 'layouts/layout');
 // Tell express app use express layouts
 app.use(expressLayouts);
 
+// Tell express to use bodyParser
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: false }));
+
+
 // Importing our routes
 const indexRouter = require('./routes/index');
+const authorsRouter = require('./routes/authors');
 
 // Setting up routes to be used
 app.use('/', indexRouter);
+app.use('/authors', authorsRouter);
 
 // We need to tell express where all our public files will be
 app.use(express.static('./public'));
+
+// Using body-parser
+
 
 //-------------------------------------------------------------
 
