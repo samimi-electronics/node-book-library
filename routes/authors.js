@@ -17,7 +17,8 @@ router.get('/', async (req, res) => {
 			authors: authors,
 			searchOptions: req.query
 		});
-	} catch {
+	} catch(err) {
+		console.log('Error finding authors: ', err);
 		res.render('/');
 	}
 });
@@ -52,24 +53,20 @@ router.get('/new', (req, res) => {
 
 // The good way: using async and await
 router.post('/', async (req, res) => {
-	const author = new Author();
+	const author = new Author({
+		name: req.body.name
+	});
 	try {
 		const newAuthor = await author.save();
 			//res.redirect(`authors/${newAuthor}`)
-			res.redirect(`authors`)
-	} catch {
+			res.redirect(`authors`);
+	} catch(err) {
+		console.log('Error adding autor:' ,err);
 		res.render('authors/new', {
 			author: author,
 			errorMessage: 'Error creating author'
 		});
 	}
 });
-
-
-
-
-
-
-
 
 module.exports = router;
